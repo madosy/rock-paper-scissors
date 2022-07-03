@@ -27,9 +27,8 @@ function getPlayerInput(){
 function playRound () {
     let playerSelection = getPlayerInput();
     let computerSelection = computerPlay();
-    console.log(evalWinner(playerSelection,computerSelection));
-
-    
+    let outcome = evalWinner(playerSelection,computerSelection);
+    console.log(outcome);   
 }
 
 function evalWinner(playerSelection,computerSelection) {
