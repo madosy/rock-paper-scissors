@@ -25,7 +25,7 @@ function getPlayerInput(){
 }
 
 const rpsMap = new Map()
-//rpsMap.get(playerValue).computerSelection --> 'tie' || 'win' || 'lose'
+//rpsMap.get(playerValue)[computerSelection] --> 'tie' || 'win' || 'lose'
 rpsMap.set('rock', {
     rock: 'tie',
     paper: 'lose',
