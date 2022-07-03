@@ -51,13 +51,26 @@ function playRound () {
         (outcome == 'lose')? `You lose! ${capText(computerSelection)} beats ${playerSelection}.` :
         (outcome == 'win')? `You win! ${capText(playerSelection)} beats ${computerSelection}.` :
         `It's a tie.`;
-    console.log(resultText);   
+    console.log(resultText);
+    if (outcome == 'win') return 1;
+    if (outcome == 'lose') return -1;
+    else return 0;
 }
 
 function capText(text) {
     firstLetter = text[0].toUpperCase();
     remainder = text.slice(1);
     return firstLetter.concat(remainder)
+}
+
+function game() {
+    let score = 0;
+    for(let i=0; i < 5; i++){
+        score += playRound();
+    }
+(score > 0)? console.log(`Final winner is Player with ${score} points!`) :
+(score < 0)? console.log(`Final winner is Computer with ${score} points...`) :
+console.log("It's a tie.")
 }
 
 
