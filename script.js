@@ -69,7 +69,7 @@ function game() {
         score += playRound();
     }
 (score > 0)? console.log(`Final winner is Player with ${score} points!`) :
-(score < 0)? console.log(`Final winner is Computer with ${score} points...`) :
+(score < 0)? console.log(`Final winner is Computer with ${score*(-1)} points...`) :
 console.log("It's a tie.")
 }
 
