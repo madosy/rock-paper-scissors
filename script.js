@@ -13,6 +13,7 @@ function getRandomInt(max) {
 }
 
 function getPlayerInput(){
+    console.log(this);
     let playerInput = prompt("What's your move?");
     let playerInput_lc = playerInput.toLowerCase();
     switch (playerInput_lc){
@@ -42,8 +43,25 @@ rpsMap.set('scissor', {
     scissor: 'tie'
 })
 
-function playRound () {
-    let playerSelection = getPlayerInput();
+const scoreStatus = document.querySelector('#scoreStatus');
+const gameStatus = document.querySelector('#gameStatus');
+let playerScore = 0;
+let computerScore = 0;
+
+const printFinalResults = (winner) => {
+    gameStatus.textContent = `Final winner is ${winner} with ${playerScore + ':' + computerScore} points`
+    if (winner == "player") gameStatus.textContent += "!!!"
+    else gameStatus.textContent += "..."
+    
+    playerScore = 0;
+    computerScore = 0;
+}
+
+const updateScoreStatus = () => scoreStatus.textContent = `${playerScore}:${computerScore}`;
+
+function playRound (playerSelection) {
+    // let playerSelection = getPlayerInput();
+    
     let computerSelection = computerPlay();
     // let outcome = evalWinner(playerSelection,computerSelection);
     let outcome = rpsMap.get(playerSelection)[computerSelection];
@@ -51,10 +69,13 @@ function playRound () {
         (outcome == 'lose')? `You lose! ${capText(computerSelection)} beats ${playerSelection}.` :
         (outcome == 'win')? `You win! ${capText(playerSelection)} beats ${computerSelection}.` :
         `It's a tie.`;
-    console.log(resultText);
-    if (outcome == 'win') return 1;
-    if (outcome == 'lose') return -1;
-    else return 0;
+    gameStatus.textContent = resultText;
+    if (outcome == 'win') playerScore++;
+    if (outcome == 'lose') computerScore++;
+    updateScoreStatus();
+
+if (playerScore == 5) printFinalResults("player")
+if (computerScore == 5) printFinalResults("computer")
 }
 
 function capText(text) {
@@ -63,15 +84,15 @@ function capText(text) {
     return firstLetter.concat(remainder)
 }
 
-function game() {
-    let score = 0;
-    for(let i=0; i < 5; i++){
-        score += playRound();
-    }
-(score > 0)? console.log(`Final winner is Player with ${score} points!`) :
-(score < 0)? console.log(`Final winner is Computer with ${score*(-1)} points...`) :
-console.log("It's a tie.")
-}
+const buttons = document.querySelectorAll('.game');
+buttons.forEach(button => {button.addEventListener('click', function (e) {
+    playRound(e.target.id)
+})
+    
+});
+
+
+
 
 
 
