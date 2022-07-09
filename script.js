@@ -49,11 +49,18 @@ let playerScore = 0;
 let computerScore = 0;
 let resultText =''
 
+const buttons = document.querySelectorAll('.game');
+buttons.forEach(button => {button.addEventListener('click', function (e) {
+    playRound(e.target.id)
+})
+
 const printFinalResults = function (winner) {
     gameStatus.classList.add("final")
     gameStatus.textContent = `Final winner is ${winner} with ${playerScore + ':' + computerScore} points`
     if (winner == "player") gameStatus.textContent += "!!!"
     else gameStatus.textContent += "..."
+
+    buttons.forEach(button => button.disabled = true)
     
     playerScore = 0;
     computerScore = 0;
@@ -63,10 +70,8 @@ const updateScoreStatus = () => scoreStatus.textContent = `${playerScore}:${comp
 
 function playRound (playerSelection) {
     gameStatus.classList.remove("final");
-    // let playerSelection = getPlayerInput();
     
     let computerSelection = computerPlay();
-    // let outcome = evalWinner(playerSelection,computerSelection);
     let outcome = rpsMap.get(playerSelection)[computerSelection];
     if (outcome == 'lose'){
         gameStatus.textContent = `You lose! ${capText(computerSelection)} beats ${playerSelection}.`;
@@ -88,10 +93,7 @@ function capText(text) {
     return firstLetter.concat(remainder)
 }
 
-const buttons = document.querySelectorAll('.game');
-buttons.forEach(button => {button.addEventListener('click', function (e) {
-    playRound(e.target.id)
-})
+
     
 });
 
