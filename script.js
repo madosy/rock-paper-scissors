@@ -47,8 +47,10 @@ const scoreStatus = document.querySelector('#scoreStatus');
 const gameStatus = document.querySelector('#gameStatus');
 let playerScore = 0;
 let computerScore = 0;
+let resultText =''
 
-const printFinalResults = (winner) => {
+const printFinalResults = function (winner) {
+    gameStatus.classList.add("final")
     gameStatus.textContent = `Final winner is ${winner} with ${playerScore + ':' + computerScore} points`
     if (winner == "player") gameStatus.textContent += "!!!"
     else gameStatus.textContent += "..."
@@ -60,22 +62,24 @@ const printFinalResults = (winner) => {
 const updateScoreStatus = () => scoreStatus.textContent = `${playerScore}:${computerScore}`;
 
 function playRound (playerSelection) {
+    gameStatus.classList.remove("final");
     // let playerSelection = getPlayerInput();
     
     let computerSelection = computerPlay();
     // let outcome = evalWinner(playerSelection,computerSelection);
     let outcome = rpsMap.get(playerSelection)[computerSelection];
-    let resultText = 
-        (outcome == 'lose')? `You lose! ${capText(computerSelection)} beats ${playerSelection}.` :
-        (outcome == 'win')? `You win! ${capText(playerSelection)} beats ${computerSelection}.` :
-        `It's a tie.`;
-    gameStatus.textContent = resultText;
-    if (outcome == 'win') playerScore++;
-    if (outcome == 'lose') computerScore++;
+    if (outcome == 'lose'){
+        gameStatus.textContent = `You lose! ${capText(computerSelection)} beats ${playerSelection}.`;
+        computerScore++
+    } else if (outcome == 'win'){
+        gameStatus.textContent = `You win! ${capText(playerSelection)} beats ${computerSelection}.`;
+        playerScore++;
+    } else { gameStatus.textContent = `It's a tie.`}
+
     updateScoreStatus();
 
-if (playerScore == 5) printFinalResults("player")
-if (computerScore == 5) printFinalResults("computer")
+    if (playerScore == 5) printFinalResults("player")
+    if (computerScore == 5) printFinalResults("computer")
 }
 
 function capText(text) {
