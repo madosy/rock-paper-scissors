@@ -1,4 +1,5 @@
 newGameButton = document.querySelector('button.restart');
+newGameButton.addEventListener('click', initNewGame);
 // newGameButton.style.display = 'block'
 
 function computerPlay() {
