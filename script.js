@@ -10,11 +10,13 @@ playerOptions.forEach(option => option.addEventListener('click', (e) => {
 
 function computerPlay() {
     let getRandomInt = (max) => Math.floor(Math.random() * max); 
-    myRandInt = getRandomInt(3);
+    myRandInt = getRandomInt(5);
     switch (myRandInt){
         case 0: return "rock"
         case 1: return "paper"
         case 2: return "scissor"
+        case 3: return "lizard"
+        case 4: return "spock"
     } 
 }
 
