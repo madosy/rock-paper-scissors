@@ -1,4 +1,5 @@
 function computerPlay() {
+    let getRandomInt = (max) => Math.floor(Math.random() * max); 
     myRandInt = getRandomInt(3);
     switch (myRandInt){
         case 0: return "rock"
@@ -7,25 +8,7 @@ function computerPlay() {
     } 
 }
 
-function getRandomInt(max) {
-    //get random int with a max value
-    return Math.floor( Math.random() * max );
-}
-
-// function getPlayerInput(){
-//     console.log(this);
-//     let playerInput = prompt("What's your move?");
-//     let playerInput_lc = playerInput.toLowerCase();
-//     switch (playerInput_lc){
-//         case "rock":
-//         case "scissor":
-//         case "paper": return playerInput_lc;
-//         default: 
-//             alert("'"+playerInput+"'" + " is an invalid move! Try again.");
-//     }
-// }
 const winCondition = new Map()
-//rpsMap.get(playerValue)[computerSelection] --> 'tie' || 'win' || 'lose'
 winCondition.set('lizard', {
     paper: 'eats',
     spock: 'poisons'
@@ -49,56 +32,13 @@ winCondition.set('spock', {
 
 function evalWinner(playerChoice, computerChoice) {
     if (winCondition.get(playerChoice).hasOwnProperty(computerChoice)) {
-        return true
+        return true //player wins!
     } else return false
 }
 
-function getFlavorText(winnerchoice, loserchoice) {
-    return winCondition.get(winnerchoice)[loserchoice]
-}
-
-const scoreStatus = document.querySelector('#scoreStatus');
-const gameStatus = document.querySelector('#gameStatus');
-let playerScore = 0;
-let computerScore = 0;
-let resultText =''
-
-const buttons = document.querySelectorAll('.game');
-buttons.forEach(button => {button.addEventListener('click', function (e) {
-    playRound(e.target.id)
-})
-
-const printFinalResults = function (winner) {
-    gameStatus.classList.add("final")
-    gameStatus.textContent = `Final winner is ${winner} with ${playerScore + ':' + computerScore} points`
-    if (winner == "player") gameStatus.textContent += "!!!"
-    else gameStatus.textContent += "..."
-
-    buttons.forEach(button => button.disabled = true)
-    
-    playerScore = 0;
-    computerScore = 0;
-}
-
-const updateScoreStatus = () => scoreStatus.textContent = `${playerScore}:${computerScore}`;
-
-function playRound (playerSelection) {
-    gameStatus.classList.remove("final");
-    
-    let computerSelection = computerPlay();
-    let outcome = rpsMap.get(playerSelection)[computerSelection];
-    if (outcome == 'lose'){
-        gameStatus.textContent = `You lose! ${capText(computerSelection)} beats ${playerSelection}.`;
-        computerScore++
-    } else if (outcome == 'win'){
-        gameStatus.textContent = `You win! ${capText(playerSelection)} beats ${computerSelection}.`;
-        playerScore++;
-    } else { gameStatus.textContent = `It's a tie.`}
-
-    updateScoreStatus();
-
-    if (playerScore == 5) printFinalResults("player")
-    if (computerScore == 5) printFinalResults("computer")
+function getFlavorText(winnerChoice, loserChoice) {
+    let action = winCondition.get(winnerChoice)[loserChoice];
+    return capText(winnerChoice) + ' ' + action + ' ' + loserChoice
 }
 
 function capText(text) {
@@ -108,31 +48,72 @@ function capText(text) {
 }
 
 
+
+function initNewGame() {
+    playerScore = 0;
+    playerScore_display.textContent = 0;
+    pcScore = 0;
+    pcScore_display.textContent = 0;
+}
+
+const scoreStatus = document.querySelector('#scoreStatus');
+const gameStatus = document.querySelector('#gameStatus');
+let playerScore_display = document.getElementById('playerScore_display');
+let pcScore_display = document.getElementById('pcScore_display');
+
+initNewGame();
+
+const playerOptions = document.querySelectorAll('.playerOptions');
+playerOptions.forEach(option => option.addEventListener('click', (e) => {
+    playerChoice = e.target.value;
+    playRound(playerChoice);
+}));
+
+
+
+function updateScoreDisplay() {
+    playerScore_display.textContent = playerScore;
+    pcScore_display.textContent = pcScore;
+}
+
+let againCounter = 0;
+
+function playRound (playerChoice) {
+    gameStatus.classList.remove("final");
     
-});
+    let computerChoice = computerPlay();
+    playerWinCheck =  evalWinner(playerChoice,computerChoice);
 
+    if (playerChoice === computerChoice) {
+            gameStatus.textContent = "It's a draw."
+            againCounter++
+            if (againCounter == 2) gameStatus.textContent += `..again`
+            else if (againCounter > 2) gameStatus.textContent += `..again (${againCounter-1}x)`
+    } else if (playerWinCheck) {
+        playerScore++
+        flavorText = getFlavorText(playerChoice, computerChoice) + "!"; //winner in 1st slot
+        gameStatus.textContent = `Player wins. ${flavorText}`   
+        againCounter = 0;    
+    } else {
+        pcScore++
+        flavorText = getFlavorText(computerChoice, playerChoice) + '...';
+        gameStatus.textContent = `Computer wins. ${flavorText}`
+        againCounter = 0;    
+    }
 
+    updateScoreDisplay();
+    if (playerScore == 5) printFinalWinner("player");
+    if (pcScore == 5) printFinalWinner("computer");
+}
 
+const printFinalWinner = function (winner) {
+    gameStatus.classList.add("final")
+    
+    gameStatus.textContent = `Final winner is ${winner} with ${playerScore + ':' + pcScore} points`
+        if (winner == "player") gameStatus.textContent += "!!!"
+        else gameStatus.textContent += "..."
 
+    // buttons.forEach(button => button.disabled = true)
 
-
-// function evalWinner(playerSelection,computerSelection) {
-//     if (playerSelection == computerSelection) {
-//         return "It's a tie!"
-//     } else if (playerSelection=="rock") {
-//         switch (computerSelection){
-//             case "paper": return "You lose! Paper beats Rock."
-//             case "scissor": return "You win! Rock beats Scissor."
-//         }
-//     } else if (playerSelection=="paper") {
-//         switch (computerSelection){
-//             case "rock": return "You win! Paper beats Rock."
-//             case "scissor": return "You lose! Scissor beats Paper."
-//         }
-//     } else if (playerSelection=="scissor") {
-//         switch (computerSelection){
-//             case "rock": return "You lose! Rock beats scissor."
-//             case "paper": return "You win! Scissor beats Paper."
-//         }
-//     }
-// }
+    initNewGame();
+}
