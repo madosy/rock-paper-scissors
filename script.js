@@ -1,6 +1,12 @@
 newGameButton = document.querySelector('button.restart');
 newGameButton.addEventListener('click', initNewGame);
 // newGameButton.style.display = 'block'
+const playerOptions = document.querySelectorAll('.playerOptions');
+playerOptions.forEach(option => option.addEventListener('click', (e) => {
+    playerChoice = e.target.value;
+    playRound(playerChoice);
+}));
+
 
 function computerPlay() {
     let getRandomInt = (max) => Math.floor(Math.random() * max); 
@@ -54,11 +60,16 @@ function capText(text) {
 
 
 function initNewGame() {
-    newGameButton.style.display = 'none'
+    
     playerScore = 0;
     playerScore_display.textContent = 0;
     pcScore = 0;
     pcScore_display.textContent = 0;
+
+    gameStatus.classList.remove("final");
+    newGameButton.style.display = 'none'
+    playerOptions.forEach(option => option.disabled = false)
+    gameStatus.textContent = 'Select your move...'
 }
 
 const scoreStatus = document.querySelector('#scoreStatus');
@@ -68,11 +79,6 @@ let pcScore_display = document.getElementById('pcScore_display');
 
 initNewGame();
 
-const playerOptions = document.querySelectorAll('.playerOptions');
-playerOptions.forEach(option => option.addEventListener('click', (e) => {
-    playerChoice = e.target.value;
-    playRound(playerChoice);
-}));
 
 
 
@@ -84,7 +90,7 @@ function updateScoreDisplay() {
 let againCounter = 0;
 
 function playRound (playerChoice) {
-    gameStatus.classList.remove("final");
+
 
     let computerChoice = computerPlay();
     playerWinCheck =  evalWinner(playerChoice,computerChoice);
