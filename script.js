@@ -12,36 +12,50 @@ function getRandomInt(max) {
     return Math.floor( Math.random() * max );
 }
 
-function getPlayerInput(){
-    console.log(this);
-    let playerInput = prompt("What's your move?");
-    let playerInput_lc = playerInput.toLowerCase();
-    switch (playerInput_lc){
-        case "rock":
-        case "scissor":
-        case "paper": return playerInput_lc;
-        default: 
-            alert("'"+playerInput+"'" + " is an invalid move! Try again.");
-    }
+// function getPlayerInput(){
+//     console.log(this);
+//     let playerInput = prompt("What's your move?");
+//     let playerInput_lc = playerInput.toLowerCase();
+//     switch (playerInput_lc){
+//         case "rock":
+//         case "scissor":
+//         case "paper": return playerInput_lc;
+//         default: 
+//             alert("'"+playerInput+"'" + " is an invalid move! Try again.");
+//     }
+// }
+const winCondition = new Map()
+//rpsMap.get(playerValue)[computerSelection] --> 'tie' || 'win' || 'lose'
+winCondition.set('lizard', {
+    paper: 'eats',
+    spock: 'poisons'
+})
+winCondition.set('scissor', {
+    paper: 'cuts',
+    lizard: 'decapitates'
+})
+winCondition.set('rock', {
+    lizard: 'crushes',
+    scissor: 'crushes'
+})
+winCondition.set('paper', {
+    spock: 'disproves',
+    rock: 'covers'
+})
+winCondition.set('spock', {
+    rock: 'vaporizes',
+    scissor: 'smashes'
+})
+
+function evalWinner(playerChoice, computerChoice) {
+    if (winCondition.get(playerChoice).hasOwnProperty(computerChoice)) {
+        return true
+    } else return false
 }
 
-const rpsMap = new Map()
-//rpsMap.get(playerValue)[computerSelection] --> 'tie' || 'win' || 'lose'
-rpsMap.set('rock', {
-    rock: 'tie',
-    paper: 'lose',
-    scissor: 'win'
-})
-rpsMap.set('paper', {
-    rock: 'win',
-    paper: 'tie',
-    scissor: 'lose'
-})
-rpsMap.set('scissor', {
-    rock: 'lose',
-    paper: 'win',
-    scissor: 'tie'
-})
+function getFlavorText(winnerchoice, loserchoice) {
+    return winCondition.get(winnerchoice)[loserchoice]
+}
 
 const scoreStatus = document.querySelector('#scoreStatus');
 const gameStatus = document.querySelector('#gameStatus');
