@@ -1,3 +1,6 @@
+newGameButton = document.querySelector('button.restart');
+// newGameButton.style.display = 'block'
+
 function computerPlay() {
     let getRandomInt = (max) => Math.floor(Math.random() * max); 
     myRandInt = getRandomInt(3);
@@ -50,6 +53,7 @@ function capText(text) {
 
 
 function initNewGame() {
+    newGameButton.style.display = 'none'
     playerScore = 0;
     playerScore_display.textContent = 0;
     pcScore = 0;
@@ -80,7 +84,7 @@ let againCounter = 0;
 
 function playRound (playerChoice) {
     gameStatus.classList.remove("final");
-    
+
     let computerChoice = computerPlay();
     playerWinCheck =  evalWinner(playerChoice,computerChoice);
 
@@ -113,7 +117,8 @@ const printFinalWinner = function (winner) {
         if (winner == "player") gameStatus.textContent += "!!!"
         else gameStatus.textContent += "..."
 
-    // buttons.forEach(button => button.disabled = true)
+    playerOptions.forEach(option => option.disabled = true)
+    newGameButton.style.display = "block"
 
-    initNewGame();
 }
+
