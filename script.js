@@ -43,9 +43,7 @@ winCondition.set('spock', {
 })
 
 function evalWinner(playerChoice, computerChoice) {
-    if (winCondition.get(playerChoice).hasOwnProperty(computerChoice)) {
-        return true //player wins!
-    } else return false
+    return computerChoice in winCondition.get(playerChoice) //player wins!
 }
 
 function getFlavorText(winnerChoice, loserChoice) {
