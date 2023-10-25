@@ -127,4 +127,45 @@ body {
     box-shadow: inset 0px 6px hsl(0,0%,40%);
 }
 
+dialog.rules {
+    border-radius: 20px;
+    position: relative;
+    border: 0;
+}
+
+dialog.rules::backdrop{
+    background-color: hsla(229, 25%,0%, 50%);
+}
+
+dialog.rules > .dialog-content{
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ grid-template-rows: min-content 1fr;
+ row-gap: 20px;
+ align-items: center;
+ padding: 20px;
+}
+
+.dialog-content h1{
+    margin: 0;
+    justify-self: flex-start;
+}
+
+.dialog-content > button.close-modal {
+background-image: url(./assets/icon-close.svg);
+background-repeat: no-repeat;
+background-position: center;
+color: hsla(0, 0%, 0%, 0%);
+user-select:none;
+width: 30px;
+height: 30px;
+justify-self: flex-end;
+background-color: hsla(0, 0%, 0%, 0%);
+border: 0;
+}
+
+.dialog-content > img {
+    grid-column: span 2;
+}
+
 
