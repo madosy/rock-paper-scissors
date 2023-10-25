@@ -1,35 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissors</title>
-</head>
-<body>
-    <div id="scoreStatus">
-        <span id="playerScore_display">0</span>:<span id="pcScore_display">0</span></div>
+    <link rel="stylesheet" href="normalize.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <div class="top">
+      <div id="gameStatus">Select your move...</div>
+      <div id="scoreStatus">
+        <span>
+          <span id="playerScore_display">0</span>:<span id="pcScore_display"
+            >0</span
+          >
+        </span>
+      </div>
+    </div>
     <div>
-        <button class="playerOptions" value="rock">Rock</button>
-        <button class="playerOptions" value="paper">Paper</button>
-        <button class="playerOptions" value="scissor">Scissor</button>
-        <button class="playerOptions" value="lizard">Lizard</button>
-        <button class="playerOptions" value="spock">Spock</button>
+      <!-- <button class="playerOptions" value="rock">Rock</button>
+      <button class="playerOptions" value="paper">Paper</button>
+      <button class="playerOptions" value="scissor">Scissor</button>
+      <button class="playerOptions" value="lizard">Lizard</button>
+      <button class="playerOptions" value="spock">Spock</button> -->
     </div>
-    <div id="gameStatus">Select your move...</div>
+    <div class="button-container">
+      <button class="playerOptions" value="rock">Rock</button>
+      <button class="playerOptions" value="paper">Paper</button>
+      <button class="playerOptions" value="scissor">Scissor</button>
+      <button class="playerOptions" value="lizard">Lizard</button>
+      <button class="playerOptions" value="spock">Spock</button>
+    </div>
     <div id="newGame">
-        <button class="restart" style="display:none;">Start a new game?</button>
+      <button class="restart" style="display: none">Start a new game?</button>
     </div>
-    
-    <script type=""src="script.js"></script>
-    
-</body>
+  </body>
 
-<style>
+  <style>
     .final {
-        font-size: x-large;
-        font-weight: bold;
-        color: red;
+      font-size: x-large;
+      font-weight: bold;
+      color: red;
     }
-</style>
+  </style>
 </html>

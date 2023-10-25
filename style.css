@@ -1,0 +1,130 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap');
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(at top, hsl(214, 47%, 23%),hsl(237, 49%, 15%));
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    display: flex;
+    flex-direction: column;
+   align-items: center;
+   justify-content: center;
+    gap: 30px;
+
+}
+
+#newGame {
+    position:absolute;
+    bottom: 30px;
+}
+
+.top {
+    max-width: 600px;
+    min-width: 300px;
+    width: 60vw;
+    border: 3px solid hsla(0, 0%, 100%, 30%);
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#gameStatus{
+    color: hsla(0, 0%, 100%, 80%);
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+
+#scoreStatus{
+    box-sizing: border-box;
+    background-color: white;
+    width: 130px;
+    height: 110px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 1rem, 1fr;
+    padding: 5px 10px;
+
+    color: hsl(229, 25%, 31%);
+    font-size: 3rem;
+    place-content: center;
+    font-weight: 700;
+
+
+}
+
+#scoreStatus::before{
+    content: "SCORE";
+    color: hsl(229, 60%, 55%);
+    letter-spacing: 2px;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+
+}
+
+.button-container{
+    width: 55vh;
+    height: 55vh;
+    background-image: url(./assets/bg-pentagon.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+    position: relative;
+}
+
+.button-container > button {
+    position:absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 100%;
+    border: 15px hsl(349, 70%, 56%) solid;
+    width: 30%;
+    height: 30%;
+    color: hsla(0, 0%, 0%, 0%)
+}
+
+.button-container > button[value="scissor"]{
+    background-image: url(./assets/icon-scissors.svg);
+    border-color:   hsl(40, 84%, 53%);
+    box-shadow: inset 0px 6px hsl(0,0%,80%), 0px 8px hsl(39, 89%, 40%);
+    top: 0px;
+    left: 35%;
+}
+.button-container > button[value="spock"]{
+    background-image: url(./assets/icon-spock.svg);
+    border-color:  hsl(189, 58%, 57%);
+    box-shadow: inset 0px 4px hsl(0,0%,80%), 0px 6px hsl(189, 55%, 43%);
+    top: 30%;
+    left: 0%;
+}
+.button-container > button[value="paper"]{
+    background-image: url(./assets/icon-paper.svg);
+    border-color:   hsl(230, 89%, 65%);
+    box-shadow: inset 0px 6px hsl(0,0%,80%), 0px 8px hsl(230, 89%, 58%);
+    top: 30%;
+    right: 0%;
+}
+.button-container > button[value="lizard"]{
+    background-image: url(./assets/icon-lizard.svg);
+    border-color:  hsl(261, 72%, 63%);
+    box-shadow: inset 0px 6px hsl(0,0%,80%), 0px 8px hsl(261, 73%, 55%);
+    bottom: 0px;
+    left: 13%;
+}
+.button-container > button[value="rock"]{
+    background-image: url(./assets/icon-rock.svg);
+    box-shadow: inset 0px 6px hsl(0,0%,80%), 0px 8px hsl(349, 60%, 40%) ;
+    bottom: 0px;
+    right: 13%;
+}
+
+.button-container > button:disabled {
+    opacity: 75%;
+    background-color: hsla(0, 0%, 60%, 100%);
+    box-shadow: inset 0px 6px hsl(0,0%,40%);
+}
+
+
