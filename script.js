@@ -131,9 +131,8 @@ function playRound(playerChoice) {
 const printFinalWinner = function (winner) {
   gameStatus.classList.add("final");
 
-  gameStatus.textContent = `Final winner is ${winner} with ${
-    playerScore + ":" + pcScore
-  } points`;
+  gameStatus.textContent = `${gameStatus.textContent}
+  Final winner is ${winner} with ${playerScore + ":" + pcScore} points`;
   if (winner == "player") gameStatus.textContent += "!!!";
   else gameStatus.textContent += "...";
 
